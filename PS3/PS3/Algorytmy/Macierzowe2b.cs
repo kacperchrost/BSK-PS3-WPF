@@ -25,10 +25,12 @@ namespace PS3.Algorytmy
         private string result="";
         private List<int> order = new List<int>();
         private List<string> Mtab = new List<string>();
-        private List<string> Mtab2 = new List<string>();
+        //private List<string> Mtab2 = new List<string>();
+
+
         public Macierzowe2b(string M, string key)
         {
-            this.M = M.Replace(" ", "");
+            this.M = M;
             this.key = key;
             il = key.Length;
             order = Order();
@@ -46,7 +48,6 @@ namespace PS3.Algorytmy
                 {
                     l.value = (int)key[i] - 64;
                     l.seq = i + 1;
-                    //Console.WriteLine(l.value+" "+ l.seq);
                     order2.Add(l);
                 }
             }
@@ -77,51 +78,60 @@ namespace PS3.Algorytmy
                     if (M.Length > (i + y))
                     {
                         if ((int)M[i + y] == 32) i++;
-                        //Console.WriteLine(M[i + y]);
-                        String x = Mtab[y] + M[i + y];
+                        string x = Mtab[y] + M[i + y];
                         Mtab[y] = x;
                     }
                 }
-                //Console.WriteLine(i);
             }
             return Mtab;
         }
+
         public string Encrypt()
         {
-            foreach (int o in order)
+            List<string> Mtemp = new List<string>();
+            for (int i = 0; i < il; i++) Mtemp.Add("");
+            for (int i = 0; i < il; i++)
             {
-                result = result + Mtab[o - 1] + " ";
+                Mtemp[order[i] - 1] = Mtab[i];
             }
+
+            foreach (string z in Mtemp)
+            {
+                result = result + z + " ";
+            }
+
             return result;
         }
 
         public string Decrypt()
         {
-            string result = M;
-            for (int i = 0; i < il; i++) Mtab2.Add("");
+            string res = M;
+            List<string> Mtab2 = new List<string>();
+            List<string> Mtemp2 = new List<string>();
             int u = 0;
-            for (int i = 0; i < result.Length; i++)
+            for (int i = 0; i < il; i++) Mtab2.Add("");
+            for (int i = 0; i < il; i++) Mtemp2.Add("");
+            for (int i = 0; i < res.Length; i++)
             {
-                if ((int)result[i] == 32) { u++; i++; }
-                if (u < il) Mtab2[order[u] - 1] = Mtab2[order[u] - 1] + result[i];
+                if ((int)res[i] == 32) { u++; i++; }
+                if (u < il) Mtab2[u] = Mtab2[u] + res[i];
+            }
+
+            for (int i = 0; i < il; i++)
+            {
+                Mtemp2[i] = Mtab2[order[i] - 1];
             }
 
             string result2 = "";
-            for (int i = 0; i < il; i++)
+            for (int i = 0; i < res.Length; i++)
             {
-                foreach (string z in Mtab2)
+                foreach (string z in Mtemp2)
                 {
                     if (z.Length > i)
                         result2 = result2 + z[i];
                 }
             }
 
-            foreach (string z in Mtab2)
-            {
-                Console.WriteLine(z);
-            }
-
-            //Console.WriteLine(result2);
             return result2;
         }
     }

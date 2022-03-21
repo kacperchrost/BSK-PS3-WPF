@@ -34,11 +34,7 @@ namespace PS3.Algorytmy
                         order.Add((int)key[i] - 48);
             }
 
-            foreach (int o in order)
-            {
-                //Console.WriteLine(o);
-                il++;
-            }
+            foreach (int o in order) il++;
             return order;
         }
 
@@ -54,17 +50,15 @@ namespace PS3.Algorytmy
                 {
                     if (M.Length > (i + y))
                     {
-                        //Console.WriteLine(M[i + y]);
                         string x = Mtab[y] + M[i + y];
                         Mtab[y] = x;
                     }
 
                 }
-                //Console.WriteLine(i);
             }
-            //Console.WriteLine("");
             return Mtab;
         }
+
         public string Encrypt()
         {
             /*Order();
@@ -79,7 +73,6 @@ namespace PS3.Algorytmy
                         result = result + Mtab[o - 1][i];
                 }
             }
-            //Console.WriteLine(result);
             return result;
         }
 
