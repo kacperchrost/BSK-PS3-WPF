@@ -20,7 +20,7 @@
         </Grid.ColumnDefinitions>
 
         <Label Grid.Row="0" Grid.Column="0" Content="Tekst" Margin="5" Padding="5"/>
-        <TextBox Grid.Row="0" Padding="5" Margin="5" Grid.Column="1" Name="Text" Grid.ColumnSpan="2"/>
+        <TextBox Grid.Row="0" Padding="5" Margin="5" Grid.Column="1" Name="Text" Grid.ColumnSpan="2" Text="CRYPTOGRAPHY"/>
         <GroupBox Header="Algorytmy" Grid.Row="1" Grid.ColumnSpan="3" Margin="5" Padding="5">
             <StackPanel Margin="10" Name="radioStack">
                 <RadioButton Name="RailFence" Margin="3" Checked="RailFence_Checked">

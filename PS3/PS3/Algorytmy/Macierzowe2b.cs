@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace PS3.Algorytmy
 {
+    //Klasa liter klucza
     public class Letter
     {
         public int seq { get; set; } // pozycja w wyrazie
@@ -19,15 +20,16 @@ namespace PS3.Algorytmy
     class Macierzowe2b
     {
 
-        private string M;
-        private string key;
-        private int il;
-        private string result="";
-        private List<int> order = new List<int>();
-        private List<string> Mtab = new List<string>();
-        //private List<string> Mtab2 = new List<string>();
+        private string M; //słowo do kodowania/ dekodowania
+        private string key; //słowo klucz
+        private int il; //ilość kolumn macierzy
+        private string result = ""; //rezultat kodowania
+        private string result2 = ""; //rezultat dekodowania
+        private List<int> order = new List<int>(); //tablica inicjatyw
+        private List<string> Mtab = new List<string>(); //zawartość kolumn kodowania
+        private List<string> Mtab2 = new List<string>(); //zawartość kolumn dekodowania
 
-
+        //Konstrukror bezparametrowy
         public Macierzowe2b(string M, string key)
         {
             this.M = M;
@@ -37,6 +39,8 @@ namespace PS3.Algorytmy
             Mtab = Matching();
         }
 
+
+        //Odczytanie klucza
         public List<int> Order()
         {
             List<Letter> order2 = new List<Letter>();
@@ -68,7 +72,14 @@ namespace PS3.Algorytmy
             return order;
         }
 
+        //Przygotowanie kodowania
         public List<string> Matching()
+        {  
+            return Mtab;
+        }
+
+        //Kodowanie
+        public string Encrypt()
         {
             for (int i = 0; i < il; i++) Mtab.Add("");
             for (int i = 0; i < M.Length; i = i + il)
@@ -83,11 +94,8 @@ namespace PS3.Algorytmy
                     }
                 }
             }
-            return Mtab;
-        }
 
-        public string Encrypt()
-        {
+
             List<string> Mtemp = new List<string>();
             for (int i = 0; i < il; i++) Mtemp.Add("");
             for (int i = 0; i < il; i++)
@@ -100,21 +108,23 @@ namespace PS3.Algorytmy
                 result = result + z + " ";
             }
 
+            Mtab.Clear();
             return result;
         }
 
+        //Dekodowanie
         public string Decrypt()
         {
-            string res = M;
-            List<string> Mtab2 = new List<string>();
+            result = M;
+            //List<string> Mtab2 = new List<string>();
             List<string> Mtemp2 = new List<string>();
             int u = 0;
             for (int i = 0; i < il; i++) Mtab2.Add("");
             for (int i = 0; i < il; i++) Mtemp2.Add("");
-            for (int i = 0; i < res.Length; i++)
+            for (int i = 0; i < result.Length; i++)
             {
-                if ((int)res[i] == 32) { u++; i++; }
-                if (u < il) Mtab2[u] = Mtab2[u] + res[i];
+                if ((int)result[i] == 32) { u++; i++; }
+                if (u < il) Mtab2[u] = Mtab2[u] + result[i];
             }
 
             for (int i = 0; i < il; i++)
@@ -122,8 +132,8 @@ namespace PS3.Algorytmy
                 Mtemp2[i] = Mtab2[order[i] - 1];
             }
 
-            string result2 = "";
-            for (int i = 0; i < res.Length; i++)
+            
+            for (int i = 0; i < result.Length; i++)
             {
                 foreach (string z in Mtemp2)
                 {
@@ -132,6 +142,7 @@ namespace PS3.Algorytmy
                 }
             }
 
+            Mtab2.Clear();
             return result2;
         }
     }

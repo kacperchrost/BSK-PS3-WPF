@@ -8,12 +8,16 @@ namespace PS3.Algorytmy
 {
     class Macierzowe2a
     {
-        private string M;
-        private string key;
-        private List<int> order = new List<int>();
-        private int il=0;
-        private List<string> Mtab = new List<string>();
-        private List<string> Mtab2 = new List<string>();
+        private string M; //słowo do kodowania/ dekodowania
+        private string key; //słowo klucz
+        private int il = 0; //ilość kolumn macierzy
+        private string result = ""; //rezultat kodowania
+        private string result2 = ""; //rezultat dekodowania
+        private List<int> order = new List<int>(); //tablica inicjatyw
+        private List<string> Mtab = new List<string>(); //zawartość kolumn kodowania
+        private List<string> Mtab2 = new List<string>(); //zawartość kolumn dekodowania
+
+        //Konstrukror bezparametrowy
         public Macierzowe2a(string M, string key)
         {
             this.M = M.Replace(" ", "");
@@ -22,6 +26,7 @@ namespace PS3.Algorytmy
             Mtab = Matching();
         }
 
+        //Odczytywanie klucza
         public List<int> Order()
         {
             for (int i = 0; i < key.Length; i++)
@@ -38,8 +43,17 @@ namespace PS3.Algorytmy
             return order;
         }
 
+        //Przygotowanie kodowania
         public List<string> Matching()
         {
+            
+            return Mtab;
+        }
+
+        //Kodowanie
+        public string Encrypt()
+        {
+
             for (int i = 0; i < il; i++)
             {
                 Mtab.Add("");
@@ -50,20 +64,14 @@ namespace PS3.Algorytmy
                 {
                     if (M.Length > (i + y))
                     {
-                        string x = Mtab[y] + M[i + y];
-                        Mtab[y] = x;
+                        Mtab[y] = Mtab[y] + M[i + y];
                     }
 
                 }
             }
-            return Mtab;
-        }
 
-        public string Encrypt()
-        {
             /*Order();
             Matching();*/
-            string result = "";
             //var order = key.Split('-').Select(Int32.Parse).ToArray();
             for (int i = 0; i < il; i++)
             {
@@ -73,14 +81,16 @@ namespace PS3.Algorytmy
                         result = result + Mtab[o - 1][i];
                 }
             }
+            Mtab.Clear();
             return result;
         }
 
+        //Dekodowanie
         public string Decrypt()
         {
             /*Order();
             Matching();*/
-            string result = M;
+            result = M;
             //var order = key.Split('-').Select(Int32.Parse).ToArray();
             for (int i = 0; i < il; i++) Mtab2.Add("");
 
@@ -102,7 +112,7 @@ namespace PS3.Algorytmy
             }
 
             string result2 = "";
-            for (int i = 0; i < il; i++)
+            for (int i = 0; i < result.Length; i++)
             {
                 foreach (string z in Mtab2)
                 {
@@ -110,6 +120,7 @@ namespace PS3.Algorytmy
                         result2 = result2 + z[i];
                 }
             }
+            Mtab2.Clear();
             return result2;
         }
     }

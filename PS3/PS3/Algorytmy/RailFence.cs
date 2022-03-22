@@ -8,14 +8,17 @@ namespace PS3.Algorytmy
 {
     class RailFence
     {
-        private string word;
-        private int x;
+        private string word; //wyraz czytany
+        private int x; //klucz
 
+        //Konstrukror bezparametrowy
         public RailFence(string word, int x)
         {
             this.word = word.Replace(" ", "");
             this.x = x;
         }
+
+        //Kodowanie
         public string Encrypt()
         {
             string outcome = "";
@@ -51,6 +54,8 @@ namespace PS3.Algorytmy
             return outcome;
         }
 
+
+        //Dekodowanie
         public string Decrypt()
         {
             string outcome = "";
